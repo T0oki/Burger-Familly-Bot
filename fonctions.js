@@ -23,17 +23,16 @@ exports.Chance = function (Pourcentage) {
 exports.IncludeCommands = function (FileDir, CommandTypeString, client) {
 
     fs.readdir(FileDir, (err, files) => {
-        console.log('- Lecture des commandes [' + CommandTypeString +'] ..');
         if (err) console.log(err);
 
         let jsFile = files.filter(f => f.split('.').pop() === 'js');
-        if (jsFile.length <= 0) {
-            console.log('Je ne trouve pas la commande');
-            return;
-        }
+        let DirColor = (jsFile.length <= 0) ? chalk.red(CommandTypeString) : chalk.green(CommandTypeString);
+        console.log(`- Lecture des commandes [${DirColor}] ..`);
+        if (jsFile.length <= 0) return;
 
         jsFile.forEach((f) => {
             let props = require(`${FileDir}${f}`);
+            if (!props.help || !props.run) return console.log(`    -> ${chalk.red(f)}`);
             console.log(`    -> ${chalk.yellow(props.help.name)}`);
             client.commands.set(props.help.name, props);
             props.help.alias.forEach((alias) => {
@@ -65,4 +64,13 @@ exports.getRole = function (message, id, name = false) {
     } else {
         return message.guild.roles.get(id);
     }
+};
+
+exports.hasRole = function (member, roles= []) {
+    if (!roles) return false;
+    let access = false;
+    roles.forEach(oneRole => {
+        if (member.roles.has(config.DevMode ? config.dev.roles[oneRole] : config.normal.roles[oneRole])) access = true;
+    });
+    return access;
 };

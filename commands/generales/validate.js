@@ -1,3 +1,7 @@
+const Fonctions = require("../../fonctions.js");                      // Load Fonctions
+const config = require('../../config/master.json');                  // Load Master Config
+const chalk = require('chalk');                                     // require chalk
+
 module.exports.help = {
     name : "VALIDATE",
     description : "Valide le joueur",
@@ -10,11 +14,17 @@ module.exports.help = {
 };
 
 module.exports.run = async (client, message, args) => {
-    const Fonctions = require("../../fonctions.js");                           // Load Fonctions
-    const config = require('../../config/master.json');                     // Load Master Config
-    const chalk = require('chalk');                                     // require chalk
 
+    // Permission Check
+    if(!Fonctions.hasRole(message.member, [
+    "directeur",
+    "responsable",
+    "admin",
+    "modo",
+    "modo-test"
+    ])) return message.reply("Vous n'avez pas la permission");
 
+    //Commande functions
     if (args[0]) {
         const user = Fonctions.getUserFromMention(client, args[0]);
         if (!user) {

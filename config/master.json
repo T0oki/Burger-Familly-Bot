@@ -5,11 +5,31 @@
   },
   "normal" : {
     "guild_id" : "",
-    "validate_role" : ""
+    "broadcast_channel" : "",
+    "roles" : {
+      "directeur" : "",
+      "responsable" : "",
+      "admin" : "",
+      "modo" : "",
+      "modo-test" : "",
+
+      "validate" : "",
+      "strem" : ""
+    }
   },
   "dev" : {
     "guild_id" : "",
-    "validate_role" : ""
+    "broadcast_channel" : "",
+    "roles" : {
+      "directeur" : "",
+      "responsable" : "",
+      "admin" : "",
+      "modo" : "",
+      "modo-test" : "",
+
+      "validate" : "",
+      "strem" : ""
+    }
   },
   "DevMode": false
 }

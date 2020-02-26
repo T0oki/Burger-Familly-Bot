@@ -1,3 +1,4 @@
 .idea
 Logs
 commands/DEFAULT.js
+config/*
