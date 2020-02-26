@@ -1,0 +1,15 @@
+{
+  "CmdPrefix": "/",
+  "status" : {
+    "name" : "/help"
+  },
+  "normal" : {
+    "guild_id" : "",
+    "validate_role" : ""
+  },
+  "dev" : {
+    "guild_id" : "",
+    "validate_role" : ""
+  },
+  "DevMode": false
+}
