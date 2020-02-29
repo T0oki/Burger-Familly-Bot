@@ -14,6 +14,7 @@ module.exports.run = async (client, message,args) => {
 
     // Permission Check
     if(!Fonctions.hasRole(message.member, [
+        "developer",
         "directeur",
         "responsable",
         "admin"
@@ -22,7 +23,7 @@ module.exports.run = async (client, message,args) => {
     //Commande functions
     if(!args) return message.reply("Veuillez entrer un message valide");
     message.delete(1);
-    client.guilds.get(config.DevMode ? config.dev.guild_id : config.normal.guild_id)
-        .channels.get(config.DevMode ? config.dev.broadcast_channel : config.normal.broadcast_channel)
+    client.guilds.get(Fonctions.DevOrNot(["guild_id"]))
+        .channels.get(Fonctions.DevOrNot(["broadcast_channel"]))
         .send(`@everyone,\n${args.slice(0).join(' ')}`);
 };

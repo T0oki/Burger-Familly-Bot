@@ -1,23 +1,23 @@
 const Init = require('./init.js');
 const chalk = require('chalk'); // require chalk
 
-let date = new Date();
-let day = date.getDate(),
-    month = date.getMonth(),
+let date = new Date(),
+    day = date.getDate(),
+    month = date.getMonth()+1,
     year = date.getFullYear(),
     hour = date.getHours(),
     minutes = date.getMinutes();
-month += 1;
+
 if (month < 10) month = `0${month}`;
 if (day < 10) day = `0${day}`;
 if (hour < 10) hour = `0${hour}`;
 if (minutes < 10) minutes = `0${minutes}`;
 let NowDate = `${day}.${month}.${year}-${hour}h${minutes}`;
 
-let fs = require('fs');
-let util = require('util');
-let log_file = fs.createWriteStream(__dirname + `/Logs/debug-${NowDate}.log`, { flags: 'w' });
-let log_stdout = process.stdout;
+let fs = require('fs'),
+    util = require('util'),
+    log_file = fs.createWriteStream(__dirname + `/Logs/debug-${NowDate}.log`, { flags: 'w' }),
+    log_stdout = process.stdout;
 
 console.log = function (d) {
     log_file.write(util.format(d) + '\r\n');

@@ -15,6 +15,7 @@ module.exports.run = async (client, message, args) => {
 
     // Permission Check
     if(!Fonctions.hasRole(message.member, [
+        "developer",
         "directeur",
         "responsable",
         "admin"
