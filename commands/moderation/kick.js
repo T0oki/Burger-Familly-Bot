@@ -33,7 +33,7 @@ module.exports.run = async (client, message, args) => {
         let reason = args.slice(1).join(' ');
         user.kick(reason)
             .then(() => {
-                console.log(`${chalk.blue(message.author.tag)} kick ${chalk.red(user.user.tag)}`);
+                console.log(`${chalk.blue(message.author.tag)} kick ${chalk.red(user.user.tag)}${reason ? ` for : ${reason}` : ""}`);
                 message.channel.send(`${user.displayName} a été expulsé du serveur ! ${reason ? `\nRaison : ${reason}` : ""}`);
             })
             .catch(console.error);

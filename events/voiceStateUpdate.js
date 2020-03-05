@@ -5,7 +5,7 @@ const Fonctions = require("../fonctions.js");                           // Load 
 module.exports = (client, oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel;
     let oldUserChannel = oldMember.voiceChannel;
-    let streamChanID = Fonctions.DevOrNot(["steam_channel"]);
+    let streamChanID = Fonctions.DevOrNot(["channels", "stream"]);
 
     if(oldUserChannel === undefined && newUserChannel !== undefined) {
         //console.log(`${newMember.user.username} ${chalk.green('join')} ${newUserChannel.name}`);

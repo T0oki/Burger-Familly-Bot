@@ -31,10 +31,12 @@ module.exports.run = async (client, message, args) => {
 
         Fonctions.MysqlSelect(`SELECT * FROM warn WHERE target = '${user.user.tag}'`, function(result){
 
-            message.channel.send(`Avertissements de : ${user}`);
+            message.channel.send(`Avertissements de ${user} :`);
+            let warns ="";
             result .forEach( (row) => {
-                message.channel.send(`par ${row['author']} : ${row['reason']}`);
+                warns += `par ${row['author']} : ${row['reason']}\n`;
             });
+            message.channel.send("```apache\n"+warns+"```");
         });
 
 

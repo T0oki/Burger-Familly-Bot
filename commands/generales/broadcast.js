@@ -24,6 +24,6 @@ module.exports.run = async (client, message,args) => {
     if(!args) return message.reply("Veuillez entrer un message valide");
     message.delete(1);
     client.guilds.get(Fonctions.DevOrNot(["guild_id"]))
-        .channels.get(Fonctions.DevOrNot(["broadcast_channel"]))
+        .channels.get(Fonctions.DevOrNot(["channels", "broadcast"]))
         .send(`@everyone,\n${args.slice(0).join(' ')}`);
 };

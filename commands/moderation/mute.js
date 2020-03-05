@@ -57,6 +57,8 @@ module.exports.run = async (client, message, args) => {
                 channel.overwritePermissions(user, {'SPEAK': false})
             }
         });
+        await user.setNickname(`[Muted] ${user.nickname ? user.nickname : user.user.username}`);
+        console.log(`${chalk.blue(message.author.tag)} mute ${chalk.red(user.user.tag)}`);
 
 
         return;

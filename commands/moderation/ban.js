@@ -32,7 +32,7 @@ module.exports.run = async (client, message, args) => {
         let reason = args.slice(1).join(' ');
         user.ban(reason)
             .then(() => {
-                console.log(`${chalk.blue(message.author.tag)} ban ${chalk.red(user.user.tag)}`);
+                console.log(`${chalk.blue(message.author.tag)} ban ${chalk.red(user.user.tag)}${reason ? ` for : ${reason}` : ""}`);
                 message.channel.send(`${user.displayName} a été bannis du serveur ! ${reason ? `\nRaison : ${reason}` : ""}`);
             })
             .catch(console.error);

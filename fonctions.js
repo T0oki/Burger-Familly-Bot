@@ -2,7 +2,8 @@ const fs = require("fs");
 const chalk = require('chalk');                                     // require chalk
 const config = require('./config/master.json');                     // Load Master Config
 const Fonctions = require("./fonctions.js");                       // Load Fonctions
-
+const mysql = require('mysql');
+const database_config = require('./config/database.json');
 
 
 // ======
@@ -39,7 +40,7 @@ exports.IncludeCommands = function (FileDir, CommandTypeString, client) {
             props.help.alias.forEach((alias) => {
                client.commands.set(alias, props);
             });
-            client.help.set(props.help.name, props.help.description)
+            client.help.set(props.help.example, props.help.description)
         });
     });
 
@@ -102,17 +103,7 @@ exports.DevOrNot = function (configKey = []) {
 };
 
 exports.MysqlInsert = function (table, columns, values) {
-    const mysql = require('mysql');
-    const database_config = require('./config/database.json');
-
-// First you need to create a connection to the database
-// Be sure to replace 'user' and 'password' with the correct values
-    const database = mysql.createConnection({
-        host: database_config.host,
-        user: database_config.user,
-        password: database_config.password,
-        database: database_config.database
-    });
+    const database = MysqlCreateConnection();
 
     database.connect((err) => {
         if(err){
@@ -121,27 +112,16 @@ exports.MysqlInsert = function (table, columns, values) {
         // connexion établie
     });
     let sql = `INSERT INTO ${table} (${columns}) VALUES ?`;
-    database.query(sql, [[values]], function (err, result) {
+    database.query(sql, [[values]], function (err) {
         if (err) throw err;
     });
     database.end((err) => {
-        // Connexion close
+        if(err) throw err;
     });
 
 };
 exports.MysqlSelect = function (request, callback) {
-    let return_var = "";
-    const mysql = require('mysql');
-    const database_config = require('./config/database.json');
-
-// First you need to create a connection to the database
-// Be sure to replace 'user' and 'password' with the correct values
-    const database = mysql.createConnection({
-        host: database_config.host,
-        user: database_config.user,
-        password: database_config.password,
-        database: database_config.database
-    });
+    const database = MysqlCreateConnection();
 
     database.connect((err) => {
         if(err){
@@ -157,4 +137,47 @@ exports.MysqlSelect = function (request, callback) {
         if(err) throw err;
     });
 
+};
+
+exports.MysqlUpdate = function (table, column, value, where) {
+    const database = MysqlCreateConnection();
+
+    database.connect((err) => {
+        if(err){
+            console.log('Error connecting to Db');
+        }
+        // connexion établie
+    });
+    let sql = `UPDATE ${table} SET ${column} ='${value}' WHERE ${where}`;
+    database.query(sql,[], function (err) {
+        if (err) throw err;
+    });
+    database.end((err) => {
+        if(err) throw err;
+    });
+
+};
+
+exports.getRandomInt = function (max) {
+    return Math.floor(Math.random() * Math.floor(max));
+};
+
+function MysqlCreateConnection() {
+    return mysql.createConnection({
+        host: database_config.host,
+        user: database_config.user,
+        password: database_config.password,
+        database: database_config.database
+    });
+}
+
+exports.findLvl = function (xp) {
+    let nxtlvl = 150, level, totalxp = nxtlvl;
+    for ( level = 0; xp >= nxtlvl; level++){
+        xp -= nxtlvl;
+        nxtlvl += 150;
+        totalxp += nxtlvl;
+    }
+
+    return [level, Math.floor((100*xp)/nxtlvl), totalxp];
 };

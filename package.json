@@ -1,8 +1,8 @@
 {
-  "name": "adele-bot",
+  "name": "burger-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "starter.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon starter.js"
@@ -12,6 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^3.0.0",
-    "discord.js": "^11.5.1"
+    "discord-anti-spam": "^2.3.5",
+    "discord.js": "^11.5.1",
+    "mysql": "latest",
+    "node-schedule": "^1.3.2"
   }
 }

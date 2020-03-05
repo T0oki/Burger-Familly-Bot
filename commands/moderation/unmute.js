@@ -52,7 +52,8 @@ module.exports.run = async (client, message, args) => {
                 "overwrites": channel.permissionOverwrites.filter(o => o.id !== user.user.id)
             });
         });
-
+        if (user.nickname.startsWith('[Muted] ')) await user.setNickname(user.nickname.slice(8));
+        console.log(`${chalk.blue(message.author.tag)} unmute ${chalk.gray(user.user.tag)}`);
 
         return;
     }

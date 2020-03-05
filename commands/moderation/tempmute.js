@@ -77,13 +77,16 @@ module.exports.run = async (client, message, args) => {
                 channel.overwritePermissions(user, {'SPEAK': false})
             }
         });
-
-        setTimeout(function(){
+        await user.setNickname(`[Muted] ${user.nickname ? user.nickname : user.user.username}`);
+        console.log(`${chalk.blue(message.author.tag)} mute ${chalk.red(user.user.tag)} for ${text.time} ${text.format}`);
+        setTimeout(async () =>{
             message.guild.channels.forEach((channel) => {
                 channel.replacePermissionOverwrites({
                     "overwrites": channel.permissionOverwrites.filter(o => o.id !== user.user.id)
                 });
             });
+            if (user.nickname.startsWith('[Muted] ')) await user.setNickname(user.nickname.slice(8));
+            console.log(`${chalk.gray(user.user.tag)} was unmuted`);
             message.channel.send(`${user} a été dé-mute !`);
         }, Number(time * 1000));
         return;
@@ -91,5 +94,5 @@ module.exports.run = async (client, message, args) => {
 
     return message.reply(`
     Utilisation Incorrecte : 
-    Utilisation : /mute <@user> [motif]`);
+    Utilisation : /tempmute <@user> [Time|s/m/h] [motif]`);
 };

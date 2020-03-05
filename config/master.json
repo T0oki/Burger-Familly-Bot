@@ -5,9 +5,12 @@
   },
   "normal" : {
     "guild_id" : "",
-    "broadcast_channel" : "",
-    "steam_channel" : "",
-    "stream_annonce_channel" : "",
+    "channels" : {
+      "broadcast" : "",
+      "stream" : "",
+      "stream_annonce" : "",
+      "level" : ""
+    },
     "roles" : {
       "developer" : "",
       "directeur" : "",
@@ -19,14 +22,22 @@
       "validate" : "",
       "stream" : "",
       "steam_notif" : "",
-      "welcome" : ""
+      "welcome" : "",
+      "actif" : "",
+      "bus" : ""
+    },
+    "emojis" :  {
+      "notif" : ""
     }
   },
   "dev" : {
     "guild_id" : "",
-    "broadcast_channel" : "",
-    "steam_channel" : "",
-    "stream_annonce_channel" : "",
+    "channels" : {
+      "broadcast" : "",
+      "stream" : "",
+      "stream_annonce" : "",
+      "level" : ""
+    },
     "roles" : {
       "developer" : "",
       "directeur" : "",
@@ -38,7 +49,12 @@
       "validate" : "",
       "stream" : "",
       "steam_notif" : "",
-      "welcome" : ""
+      "welcome" : "",
+      "actif" : "",
+      "bus" : ""
+    },
+    "emojis" :  {
+      "notif" : ""
     }
   },
   "DevMode": false

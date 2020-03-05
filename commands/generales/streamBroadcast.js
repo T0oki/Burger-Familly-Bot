@@ -23,6 +23,6 @@ module.exports.run = async (client, message,args) => {
     if(!args) return message.reply("Veuillez entrer un message valide");
     message.delete(1);
     client.guilds.get(Fonctions.DevOrNot(["guild_id"]))
-        .channels.get(Fonctions.DevOrNot(["stream_annonce_channel"]))
+        .channels.get(Fonctions.DevOrNot(["channels", "stream_annonce"]))
         .send(`<@&${Fonctions.DevOrNot(["roles", "steam_notif"])}>,\n${args.slice(0).join(' ')}`);
 };
