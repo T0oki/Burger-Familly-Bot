@@ -10,7 +10,8 @@ module.exports.help = {
         "DEVALIDER",
         "UNVALIDE",
         "DELVALIDE"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {

@@ -6,7 +6,8 @@ module.exports.help = {
     example : "/busticket",
     alias : [
         "TICKETBUS"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message) => {

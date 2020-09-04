@@ -9,10 +9,12 @@ module.exports = (client, oldMember, newMember) => {
 
     if(oldUserChannel === undefined && newUserChannel !== undefined) {
         //console.log(`${newMember.user.username} ${chalk.green('join')} ${newUserChannel.name}`);
+        if(!newUserChannel) return;
         if (newUserChannel.id === streamChanID) join(newMember);
 
     } else if(newUserChannel === undefined){
         //console.log(`${newMember.user.username} ${chalk.red('left')} ${oldUserChannel.name}`);
+        if(!oldUserChannel) return;
         if (oldUserChannel.id === streamChanID) left(newMember);
 
     }

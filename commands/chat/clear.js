@@ -6,7 +6,8 @@ module.exports.help = {
     example : "/clear (Nombre de message)",
     alias : [
         "BOMBE"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {

@@ -12,7 +12,14 @@ module.exports.run = (client, message) => {
     ) return;
     if (message.content.startsWith(config.CmdPrefix)) return;
     Fonctions.MysqlSelect(`SELECT * FROM user WHERE uid = '${message.author.id}'`, function (result) {
-        if(result.length <= 0) return Fonctions.MysqlInsert('user', 'uid, name', [message.author.id, message.author.username]);
+        if(result.length <= 0) {
+            try {
+                Fonctions.MysqlInsert('user', 'uid, name', [message.author.id, message.author.username.replace(/[\u0800-\uFFFF]/g, '')])
+            } catch (e) {
+                console.log("ErreurMysqlInsert de " + message.author.username);
+            }
+            return;
+        }
         result = result[0];
         let xp = result.xp,
             last_level =result.level,

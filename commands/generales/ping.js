@@ -5,7 +5,8 @@ module.exports.help = {
     alias : [
         "PONG",
         "TCHIN"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message) => {

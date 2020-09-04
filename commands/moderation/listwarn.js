@@ -1,6 +1,5 @@
 const Fonctions = require("../../fonctions.js");                      // Load Fonctions
-const config = require('../../config/master.json');                  // Load Master Config
-const chalk = require('chalk');                                     // require chalk
+const Discord = require('discord.js');
 
 module.exports.help = {
     name : "LISTWARN",
@@ -8,7 +7,8 @@ module.exports.help = {
     example : "/listwarn <@user>",
     alias : [
         "WARNS"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {
@@ -29,14 +29,9 @@ module.exports.run = async (client, message, args) => {
         const user = Fonctions.getUserFromMention(client, args[0]);
         if (!user) return message.reply('Veuillez mentionner une personne');
 
-        Fonctions.MysqlSelect(`SELECT * FROM warn WHERE target = '${user.user.tag}'`, function(result){
-
-            message.channel.send(`Avertissements de ${user} :`);
-            let warns ="";
-            result .forEach( (row) => {
-                warns += `par ${row['author']} : ${row['reason']}\n`;
-            });
-            message.channel.send("```apache\n"+warns+"```");
+        Fonctions.MysqlSelect(`SELECT * FROM warn WHERE target = '${user.user.id}'`, function(result){
+            if(result.length <= 0) return noWarn(message, user);
+            else listWarn(message, user, result);
         });
 
 
@@ -47,3 +42,30 @@ module.exports.run = async (client, message, args) => {
     Utilisation Incorrecte : 
     Utilisation : /listwarn <@user>`);
 };
+
+function noWarn(message, user) {
+    let embed = new Discord.RichEmbed();
+    embed.setAuthor(`${user.user.tag} ne possède aucun avertissement`, "https://www.yemp.co/wp-content/uploads/2018/11/red-cross.png")
+        .setFooter(`Demmandé par ${message.author.tag}` , message.author.avatarURL);
+    message.channel.send({embed}).catch();
+}
+function listWarn(message, user, result) {
+    let embed = new Discord.RichEmbed();
+    embed.setAuthor(`Avertissements de ${user.user.tag}`, user.user.avatarURL)
+        .setFooter(`Demmandé paar ${message.author.tag}`, message.author.avatarURL)
+        .setDescription(`${user.user.tag} Possède ${result.length} avertissements`)
+        .addBlankField();
+    result.forEach(avert => {
+
+        const dateObject = new Date(avert.insert_time); // our Date object
+        let date = cz(dateObject.getDay()) + '/' + cz(dateObject.getMonth()) + '/' + cz(dateObject.getFullYear()) + ' - ' + cz(dateObject.getHours()) + ':' + cz(dateObject.getMinutes());
+        embed.addField(`[${date}]`, `__${message.client.users.get(avert.author).tag}__ : ${avert.reason}`);
+    });
+    embed.addBlankField();
+    message.channel.send({embed}).catch();
+}
+
+function cz(number) {
+    if(number < 10) number = `0${number}`;
+    return number;
+}

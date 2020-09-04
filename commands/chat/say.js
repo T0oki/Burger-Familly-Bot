@@ -8,7 +8,8 @@ module.exports.help = {
         "DIRE",
         "PARLER",
         "TELL"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {

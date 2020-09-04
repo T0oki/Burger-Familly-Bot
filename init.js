@@ -1,10 +1,10 @@
 exports.Start = function () {
     const config_dir = `${__dirname}/config/`;
-    const config = require(`${config_dir}master.json`);                     // Load Master Config
-    const token = require(`${config_dir}Token.json`);                       // Load Token Config
-    const chalk = require('chalk');                                     // require chalk
-    const Discord = require("discord.js");                              // Load Discord.js API
-    const fs = require('fs');                                           // Load fs
+    const config = require(`${config_dir}master.json`);                         // Load Master Config
+    const token = require(`${config_dir}Token.json`);                           // Load Token Config
+    const chalk = require('chalk');                                             // require chalk
+    const Discord = require("discord.js");                                      // Load Discord.js API
+    const fs = require('fs');                                                   // Load fs
     const Fonctions = require("./fonctions.js");
     const schedule = require('node-schedule');
     const client = new Discord.Client({ disableEveryone: false });       // Define Client

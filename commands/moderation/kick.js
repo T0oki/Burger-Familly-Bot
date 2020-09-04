@@ -9,7 +9,8 @@ module.exports.help = {
     alias : [
         "EXPULSE",
         "BYE"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {
@@ -19,7 +20,8 @@ module.exports.run = async (client, message, args) => {
         "developer",
         "directeur",
         "responsable",
-        "admin"
+        "admin",
+        "modo"
     ])) return message.reply("Vous n'avez pas la permission");
 
     //Commande functions

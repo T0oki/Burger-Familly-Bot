@@ -31,17 +31,21 @@ exports.IncludeCommands = function (FileDir, CommandTypeString, client) {
         let DirColor = (jsFile.length <= 0) ? chalk.red(CommandTypeString) : chalk.green(CommandTypeString);
         console.log(`- Lecture des commandes [${DirColor}] ..`);
         if (jsFile.length <= 0) return;
-
+        let file_config = require(`${FileDir}info.json`),
+            commandes = [];
         jsFile.forEach((f) => {
             let props = require(`${FileDir}${f}`);
             if (!props.help || !props.run) return console.log(`    -> ${chalk.red(f)}`);
             console.log(`    -> ${chalk.yellow(props.help.name)}`);
             client.commands.set(props.help.name, props);
             props.help.alias.forEach((alias) => {
-               client.commands.set(alias, props);
+                client.commands.set(alias, props);
             });
-            client.help.set(props.help.example, props.help.description)
+            if(props.help.display) {
+                commandes.push(props.help.name);
+            }
         });
+        client.help.set(file_config.title, {name: file_config.title, emoji : file_config.emoji, commandes : commandes});
     });
 
 };

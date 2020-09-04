@@ -5,7 +5,7 @@ const chalk = require('chalk');                                     // require c
 module.exports.help = {
     name : "TEMPMUTE",
     description : "Mute l'utilisateur temporairement",
-    example : "/tempmute <@user> [motif]",
+    example : "/tempmute [time(s/m/h/d)] <@user> [motif]",
     alias : []
 
 };
@@ -46,9 +46,14 @@ module.exports.run = async (client, message, args) => {
                 text.format = "heures";
                 time = time*60*60;
                 break;
+            case 'd':
+                text.format = "jours";
+                time = time*60*60*24;
+                break;
             default:
-                return message.channel.send("Format invalide !");
+                return message.reply("Format invalide !");
         }
+        if(time > 2073600) return message.reply('Vous ne pouvez pas effectuer un mute superieur a __24__ Jours');
         let reason = args.slice(2).join(' ');
         if (!reason) return message.channel.send('Veuillez entrer une raison');
         message.delete();
@@ -63,7 +68,7 @@ module.exports.run = async (client, message, args) => {
                 "url": "https://images-eu.ssl-images-amazon.com/images/I/41nxAOl8qGL.png"
             },
             "author": {
-                    "name": user.displayName + " a été muté "+ text.time +" " +  text.format,
+                "name": user.displayName + " a été muté "+ text.time +" " +  text.format,
                 "icon_url": user.user.avatarURL
             }
         };
@@ -80,10 +85,11 @@ module.exports.run = async (client, message, args) => {
         await user.setNickname(`[Muted] ${user.nickname ? user.nickname : user.user.username}`);
         console.log(`${chalk.blue(message.author.tag)} mute ${chalk.red(user.user.tag)} for ${text.time} ${text.format}`);
         setTimeout(async () =>{
+            if(!user.nickname || !user.nickname.startsWith('[Muted] ')) return console.log(`${chalk.red(user.user.tag)} was already unmuted !`);
             message.guild.channels.forEach((channel) => {
-                channel.replacePermissionOverwrites({
-                    "overwrites": channel.permissionOverwrites.filter(o => o.id !== user.user.id)
-                });
+                let cp = channel.permissionOverwrites.get(user.user.id);
+                if(!cp) return;
+                cp.delete('unmute');
             });
             if (user.nickname.startsWith('[Muted] ')) await user.setNickname(user.nickname.slice(8));
             console.log(`${chalk.gray(user.user.tag)} was unmuted`);

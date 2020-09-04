@@ -5,17 +5,32 @@ module.exports.help = {
     alias : [
         "?",
         "AIDE"
-    ]
+    ],
+    display : true
 };
 
+const Discord = require("discord.js");                                      // Load Discord.js API
 
 module.exports.run = async (client, message) => {
 
     //Commande functions
-    let help = "";
-    client.help.forEach((description, name) => {
-    help += `\`\`\`${name.toLowerCase()} :\n${description}\`\`\``;
+    const embed = new Discord.RichEmbed()
+        .setColor('4AEF5B')
+        .setAuthor("Liste des commandes :", "https://icons.iconarchive.com/icons/alecive/flatwoken/512/Apps-Terminal-Pc-104-icon.png")
+        .setFooter("Voici la liste des commandes", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Information_icon_alt.svg/480px-Information_icon_alt.svg.png");
+
+
+    client.help.forEach(cat => {
+        let cat_title = `${cat.emoji} __${cat.name}__ : `,
+            cat_cmd = "``";
+        cat.commandes.forEach(cmd => {
+            cat_cmd+= cmd.toLowerCase() + "`` | ``"
+        });
+        cat_cmd = cat_cmd.slice(0, -5);
+
+        embed.addField(cat_title, cat_cmd);
     });
-    message.channel.send(help);
+
+    await message.channel.send({embed}).catch();
 };
 

@@ -9,7 +9,8 @@
       "broadcast" : "",
       "stream" : "",
       "stream_annonce" : "",
-      "level" : ""
+      "level" : "",
+      "sanctions": ""
     },
     "roles" : {
       "developer" : "",
@@ -18,6 +19,7 @@
       "admin" : "",
       "modo" : "",
       "modo-test" : "",
+      "animateur" : "",
 
       "validate" : "",
       "stream" : "",
@@ -32,11 +34,12 @@
   },
   "dev" : {
     "guild_id" : "",
-    "channels" : {
+    "channels" :  {
       "broadcast" : "",
-      "stream" : "",
+      "steam" : "",
       "stream_annonce" : "",
-      "level" : ""
+      "level" : "",
+      "sanctions": ""
     },
     "roles" : {
       "developer" : "",
@@ -45,6 +48,7 @@
       "admin" : "",
       "modo" : "",
       "modo-test" : "",
+      "animateur" : "",
 
       "validate" : "",
       "stream" : "",

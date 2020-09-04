@@ -8,7 +8,8 @@ module.exports.help = {
     example : "/mute <@user> [motif]",
     alias : [
         "TG"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {

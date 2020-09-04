@@ -6,18 +6,14 @@ module.exports.help = {
     example : "/leaderboard",
     alias : [
         "TOP"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {
 
     //Commande functions
-    Fonctions.MysqlSelect(`(SELECT name, xp, FIND_IN_SET( xp, (
-SELECT GROUP_CONCAT( xp
-ORDER BY xp DESC ) 
-FROM user )
-) AS rank
-FROM user) ORDER BY rank ASC`, function (result) {
+    Fonctions.MysqlSelect(`(SELECT name, xp, FIND_IN_SET( xp, ( SELECT GROUP_CONCAT( xp ORDER BY xp DESC ) FROM user ) ) AS rank FROM user) ORDER BY \`user\`.\`xp\` DESC`, function (result) {
         const embed = {
             "color": 11978576,
             "footer": {

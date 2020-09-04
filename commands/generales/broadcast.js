@@ -7,7 +7,8 @@ module.exports.help = {
     alias : [
         "ANNONCE",
         "NEWS"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message,args) => {

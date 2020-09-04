@@ -8,7 +8,8 @@ module.exports.help = {
         "LVL",
         "XP",
         "EXP"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {

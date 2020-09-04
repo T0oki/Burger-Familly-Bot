@@ -1,10 +1,10 @@
 const Fonctions = require("../fonctions.js");                      // Load Fonctions
 const AntiSpam = require('discord-anti-spam');
 const antiSpam = new AntiSpam({
-    warnThreshold: 5, // Amount of messages sent in a row that will cause a warning.
-    kickThreshold: 7, // Amount of messages sent in a row that will cause a ban.
-    banThreshold: 7, // Amount of messages sent in a row that will cause a ban.
-    maxInterval: 3*1000, // Amount of time (in milliseconds) in which messages are considered spam.
+    warnThreshold: 3, // Amount of messages sent in a row that will cause a warning.
+    kickThreshold: 4, // Amount of messages sent in a row that will cause a ban.
+    banThreshold: 4, // Amount of messages sent in a row that will cause a ban.
+    maxInterval: 15*1000, // Amount of time (in milliseconds) in which messages are considered spam.
     warnMessage: '{@user}, Merci d\'arreter de spam !', // Message that will be sent in chat upon warning a user.
     kickMessage: '**{@user}** a été kick pour spam.', // Message that will be sent in chat upon kicking a user.
     banMessage: '**{@user}** a été bannis pour spam.', // Message that will be sent in chat upon banning a user.

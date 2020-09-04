@@ -6,7 +6,8 @@ module.exports.help = {
     example : "/strambroadcast [Contenue de l'annonce]",
     alias : [
         "STREAMANNONCE"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message,args) => {

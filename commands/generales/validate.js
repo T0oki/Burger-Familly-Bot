@@ -10,7 +10,8 @@ module.exports.help = {
         "VALIDER",
         "VALIDE",
         "APPROVE"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {

@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args) => {
     if (args[0]) {
         const user = Fonctions.getUserFromMention(client, args[0]);
         if (!user) return message.reply('Veuillez mentionner une personne');
-
+        if(!user.nickname || !user.nickname.startsWith('[Muted] ')) return message.channel.send(`${user} n'est pas mute`);
         message.delete();
         const embed = {
             "color": 16468979,
@@ -48,9 +48,9 @@ module.exports.run = async (client, message, args) => {
 
         // warn save table set values
         message.guild.channels.forEach((channel) => {
-            channel.replacePermissionOverwrites({
-                "overwrites": channel.permissionOverwrites.filter(o => o.id !== user.user.id)
-            });
+            let cp = channel.permissionOverwrites.get(user.user.id);
+            if(!cp) return;
+            cp.delete('unmute');
         });
         if (user.nickname.startsWith('[Muted] ')) await user.setNickname(user.nickname.slice(8));
         console.log(`${chalk.blue(message.author.tag)} unmute ${chalk.gray(user.user.tag)}`);

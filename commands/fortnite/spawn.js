@@ -26,7 +26,8 @@ module.exports.help = {
     example : "/spawn",
     alias : [
         "GO"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message) => {

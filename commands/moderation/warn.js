@@ -8,7 +8,8 @@ module.exports.help = {
     example : "/warn <@user> [motif]",
     alias : [
         "AVERT"
-    ]
+    ],
+    display : true
 };
 
 module.exports.run = async (client, message, args) => {
@@ -50,7 +51,7 @@ module.exports.run = async (client, message, args) => {
         await message.channel.send({embed});
 
         // warn save table set values
-        Fonctions.MysqlInsert("warn", "author, target, reason", [message.author.tag, user.user.tag, reason]);
+        Fonctions.MysqlInsert("warn", "author, target, reason", [message.author.id, user.user.id, reason]);
 
 
         return;
